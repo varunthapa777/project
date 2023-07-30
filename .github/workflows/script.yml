@@ -10,17 +10,25 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  run-python:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        
+      - name: setup Python
+        uses: actions/setup-python@v4
+        with: 
+          python-version: '3.11'
+        
 
       # Runs a single command using the runners shell
       - name: Run a Python Script
-        env:
-          MY_SECRET_TOKEN: ${ { secrets.MY_SECRET_TOKEN }}
-        run: python .github/workflows/example.py
+        run: |
+          python -m pip install requests
+          python .github/main.py
+        
