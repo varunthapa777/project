@@ -29,6 +29,5 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a Python Script
         run: |
-          python -m pip install requests
           python main.py
         
